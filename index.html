@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cybersecurity for Power Grid &amp; SCADA/OT Systems | Kaptai Power Grid Training</title>
+<meta name="description" content="30-hour outcome-based professional certificate course on power grid and SCADA/OT cybersecurity for Assistant Engineers, Kaptai Power Grid, Bangladesh.">
+<style>
+:root{
+  --bg:#e6c3c9;          /* light maroon page background */
+  --bg-soft:#f4e3e6;     /* cards */
+  --bg-nav:#d6a4ae;      /* menu + footer */
+  --maroon:#800000;      /* borders / accents only */
+  --line:#a85a67;
+  --text:#000;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
+a{color:#000;text-decoration:underline}
+a:hover{background:#f4e3e6}
+h1,h2,h3,h4{color:#000;line-height:1.25;margin:0 0 .6rem}
+h1{font-size:2.1rem}
+h2{font-size:1.6rem;border-bottom:3px solid var(--maroon);padding-bottom:.35rem;margin-bottom:1rem}
+h3{font-size:1.15rem}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+section{padding:34px 0 10px}
+
+/* ---------- top menu ---------- */
+header.top{position:sticky;top:0;z-index:50;background:var(--bg-nav);border-bottom:3px solid var(--maroon);box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px}
+.brand{font-weight:700;text-decoration:none;font-size:1rem;white-space:nowrap}
+.brand:hover{background:none}
+nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+nav a{display:block;padding:8px 11px;text-decoration:none;font-weight:600;font-size:.93rem;border-radius:4px;border:1px solid transparent}
+nav a:hover,nav a.active{background:var(--bg-soft);border-color:var(--maroon)}
+.burger{display:none;background:var(--bg-soft);color:#000;border:2px solid var(--maroon);border-radius:4px;font-size:1rem;font-weight:700;padding:6px 12px;cursor:pointer}
+@media(max-width:1020px){
+  .burger{display:block}
+  nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--bg-nav);border-bottom:3px solid var(--maroon)}
+  nav.open{display:block}
+  nav ul{flex-direction:column;padding:8px 18px}
+}
+
+/* ---------- hero ---------- */
+.hero{padding:42px 0 26px}
+.hero p.lead{font-size:1.1rem;max-width:850px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip{background:var(--bg-soft);border:1.5px solid var(--maroon);border-radius:20px;padding:3px 12px;font-size:.88rem;font-weight:600}
+.btn{display:inline-block;background:var(--bg-soft);color:#000;border:2px solid var(--maroon);border-radius:5px;padding:8px 16px;font-weight:700;text-decoration:none;cursor:pointer;font-size:.95rem;font-family:inherit}
+.btn:hover{background:#fff}
+.btn.small{padding:4px 10px;font-size:.85rem}
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--bg-soft);border:1.5px solid var(--line);border-left:6px solid var(--maroon);border-radius:6px;padding:14px 16px}
+.card h3{margin-bottom:.3rem}
+.stat{font-size:1.8rem;font-weight:800}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:10px 0 16px}
+table{border-collapse:collapse;width:100%;background:var(--bg-soft);font-size:.93rem}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:#d9aeb6;font-weight:700}
+td.c,th.c{text-align:center}
+
+/* ---------- accordions ---------- */
+details{background:var(--bg-soft);border:1.5px solid var(--line);border-radius:6px;margin:10px 0}
+details>summary{cursor:pointer;padding:10px 14px;font-weight:700;list-style:none;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"\25B6";font-size:.75rem;color:var(--maroon)}
+details[open]>summary::before{content:"\25BC"}
+details[open]>summary{border-bottom:1.5px solid var(--line)}
+.dbody{padding:10px 16px 14px}
+.dbody ul{margin:.3rem 0 .6rem 1.1rem;padding:0}
+.dbody li{margin:3px 0}
+.tag{font-size:.78rem;font-weight:700;border:1.5px solid var(--maroon);border-radius:4px;padding:0 7px;background:#fff}
+.time{margin-left:auto;font-size:.85rem;font-weight:700}
+.done-box{width:18px;height:18px;accent-color:var(--maroon)}
+
+/* ---------- module header ---------- */
+.mod-head{background:var(--bg-soft);border:2px solid var(--maroon);border-radius:8px;padding:16px 18px;margin-bottom:12px}
+.progress{height:12px;background:#fff;border:1.5px solid var(--maroon);border-radius:7px;overflow:hidden;margin-top:8px}
+.progress>i{display:block;height:100%;width:0;background:var(--maroon);transition:width .3s}
+.small{font-size:.88rem}
+
+/* ---------- labs / code ---------- */
+.lab-meta td:first-child{width:130px;font-weight:700;background:#ecd0d5}
+textarea.code{width:100%;min-height:210px;font-family:Consolas,"Courier New",monospace;font-size:.86rem;line-height:1.45;color:#000;background:#fff;border:2px solid var(--maroon);border-radius:5px;padding:10px;resize:vertical;tab-size:4;white-space:pre}
+pre.out{background:#fff;color:#000;border:2px dashed var(--line);border-radius:5px;padding:10px;margin:8px 0 0;min-height:48px;max-height:340px;overflow:auto;font-family:Consolas,"Courier New",monospace;font-size:.85rem;white-space:pre-wrap}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.note{background:#fff;border:1.5px solid var(--maroon);border-radius:6px;padding:8px 12px;font-size:.9rem;margin:10px 0}
+
+/* ---------- quiz ---------- */
+.q{background:var(--bg-soft);border:1.5px solid var(--line);border-radius:6px;padding:12px 14px;margin:10px 0}
+.q label{display:block;padding:3px 0;cursor:pointer}
+.fb{font-weight:700;margin-top:6px}
+
+/* ---------- footer ---------- */
+footer{margin-top:50px;background:var(--bg-nav);border-top:4px solid var(--maroon);padding:26px 0 18px}
+footer .cols{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+footer h4{font-size:1rem;margin-bottom:.4rem;border-bottom:1.5px solid var(--maroon);padding-bottom:3px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin:4px 0}
+.copy{border-top:1px solid var(--line);margin-top:18px;padding-top:10px;font-size:.85rem;text-align:center}
+#toTop{position:fixed;right:16px;bottom:16px;display:none;z-index:40}
+@media print{header.top,#toTop,.row,.burger{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ======================= TOP MENU ======================= -->
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#home">&#9889; Grid &amp; SCADA/OT Cybersecurity</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mainnav">&#9776; Menu</button>
+    <nav id="mainnav" aria-label="Main menu">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#outcomes">Outcomes</a></li>
+        <li><a href="#m1">Module 1</a></li>
+        <li><a href="#m2">Module 2</a></li>
+        <li><a href="#m3">Module 3</a></li>
+        <li><a href="#quizzes">Quizzes</a></li>
+        <li><a href="#assessment">Assessment</a></li>
+        <li><a href="#playground">Python Playground</a></li>
+        <li><a href="#resources">Resources</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ======================= HOME ======================= -->
+<section id="home" class="hero">
+  <div class="wrap">
+    <h1>Cybersecurity for Power Grid &amp; SCADA/OT Systems</h1>
+    <h3>Professional Certificate Course for Assistant Engineers &mdash; Kaptai Power Grid, Bangladesh</h3>
+    <p class="lead"><b>Mission:</b> equip Assistant Engineers with the knowledge, skills and professional judgment to <b>prevent, detect, mitigate and recover</b> from cyber incidents affecting distribution SCADA, substations, Advanced Metering Infrastructure (AMI) and prepaid vending systems.</p>
+    <div class="chips">
+      <span class="chip">30 contact hours</span>
+      <span class="chip">3 modules &times; 10 h</span>
+      <span class="chip">Outcome-Based Education (OBE)</span>
+      <span class="chip">Bloom&rsquo;s Taxonomy C1&ndash;C6</span>
+      <span class="chip">3 quizzes &times; 10 marks</span>
+      <span class="chip">Runnable Python labs</span>
+    </div>
+    <div class="row">
+      <a class="btn" href="#m1">Start Module 1 &rarr;</a>
+      <a class="btn" href="#outcomes">View outcomes</a>
+      <a class="btn" href="#playground">Open Python playground</a>
+    </div>
+
+    <h2 style="margin-top:28px">Course at a Glance</h2>
+    <div class="grid g4">
+      <div class="card"><div class="stat">17.75 h</div>Theory sessions</div>
+      <div class="card"><div class="stat">10.75 h</div>Hands-on labs (&asymp; 36%)</div>
+      <div class="card"><div class="stat">1.5 h</div>Three 30-minute quizzes</div>
+      <div class="card"><div class="stat">18 / 30</div>Pass mark (60%), min 4/10 per quiz</div>
+    </div>
+
+    <div class="tw">
+    <table>
+      <tr><th>Item</th><th>Details</th></tr>
+      <tr><td>Credential</td><td>Professional Certificate (competency-based)</td></tr>
+      <tr><td>Suggested delivery</td><td>6 days &times; 5 h <b>or</b> 10 evening sessions &times; 3 h</td></tr>
+      <tr><td>Language</td><td>English (technical terms), Bangla explanations as needed</td></tr>
+      <tr><td>Class size</td><td>15&ndash;25 trainees (labs in pairs)</td></tr>
+      <tr><td>Entry profile</td><td>B.Sc. Engineering in EEE or equivalent; working knowledge of power systems, protection and substation equipment. Basic networking is helpful, not mandatory (30-minute primer on Day 1). No prior cybersecurity or programming experience needed.</td></tr>
+    </table>
+    </div>
+
+    <h3>Time allocation</h3>
+    <div class="tw">
+    <table>
+      <tr><th>Module</th><th>Theme</th><th class="c">Theory</th><th class="c">Lab</th><th class="c">Quiz</th><th class="c">Total</th></tr>
+      <tr><td><a href="#m1">M1</a></td><td>Foundations, Threat Landscape &amp; Case Studies</td><td class="c">7.5 h</td><td class="c">2.0 h</td><td class="c">0.5 h</td><td class="c"><b>10 h</b></td></tr>
+      <tr><td><a href="#m2">M2</a></td><td>Prevention: Secure by Design</td><td class="c">5.5 h</td><td class="c">4.0 h</td><td class="c">0.5 h</td><td class="c"><b>10 h</b></td></tr>
+      <tr><td><a href="#m3">M3</a></td><td>Detection, Mitigation &amp; Recovery</td><td class="c">4.75 h</td><td class="c">4.75 h</td><td class="c">0.5 h</td><td class="c"><b>10 h</b></td></tr>
+      <tr><th colspan="2">Total</th><th class="c">17.75 h</th><th class="c">10.75 h</th><th class="c">1.5 h</th><th class="c">30 h</th></tr>
+    </table>
+    </div>
+
+    <div class="card">
+      <h3>Your progress</h3>
+      <div class="progress"><i id="overallBar"></i></div>
+      <div class="small" id="overallTxt">0 of 0 items completed</div>
+      <div class="row"><button class="btn small" id="resetProgress">Reset progress</button></div>
+      <div class="small">Tick the box beside each session or lab as you complete it. Progress is saved in this browser only.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= OUTCOMES ======================= -->
+<section id="outcomes">
+  <div class="wrap">
+    <h2>Outcome-Based Education Framework</h2>
+    <p>Every module, lab and assessment item traces back to a measurable outcome, written with <b>Revised Bloom&rsquo;s Taxonomy</b> action verbs.</p>
+
+    <h3>Bloom&rsquo;s Taxonomy quick reference</h3>
+    <div class="tw"><table>
+      <tr><th class="c">Level</th><th>Domain</th><th>Typical verbs</th><th>Example in this course</th></tr>
+      <tr><td class="c">C1</td><td>Remember</td><td>list, name, identify, recall</td><td>Name protocols used in substation automation</td></tr>
+      <tr><td class="c">C2</td><td>Understand</td><td>explain, describe, summarize</td><td>Explain how DLMS/COSEM protects meter commands</td></tr>
+      <tr><td class="c">C3</td><td>Apply</td><td>configure, implement, demonstrate</td><td>Configure RBAC and MFA on a jump host</td></tr>
+      <tr><td class="c">C4</td><td>Analyze</td><td>examine, differentiate, trace</td><td>Trace the Ukraine 2015 attack chain</td></tr>
+      <tr><td class="c">C5</td><td>Evaluate</td><td>assess, justify, critique</td><td>Assess a vendor RTU against hardening criteria</td></tr>
+      <tr><td class="c">C6</td><td>Create</td><td>design, develop, formulate</td><td>Design a two-person approval workflow</td></tr>
+    </table></div>
+
+    <h3>Program Outcomes (PO)</h3>
+    <p class="small"><i>Sample POs for the Professional Certificate Program in Power Grid OT Cybersecurity (aligned in spirit with BAETE / Washington Accord graduate attributes, adapted for continuing professional development).</i></p>
+    <div class="tw"><table>
+      <tr><th class="c">Code</th><th>Program outcome</th><th>Description</th></tr>
+      <tr><td class="c"><b>PO1</b></td><td>Domain Knowledge</td><td>Apply knowledge of power system operation, SCADA/OT architecture and cybersecurity principles to grid protection.</td></tr>
+      <tr><td class="c"><b>PO2</b></td><td>Risk &amp; Problem Analysis</td><td>Identify, formulate and analyze cyber risks and attack paths in grid systems using established frameworks.</td></tr>
+      <tr><td class="c"><b>PO3</b></td><td>Secure Design &amp; Solutions</td><td>Design secure configurations, procedures and architectures that meet reliability and safety needs.</td></tr>
+      <tr><td class="c"><b>PO4</b></td><td>Modern Tool Usage</td><td>Select and use appropriate monitoring, analysis and configuration tools within safe limits.</td></tr>
+      <tr><td class="c"><b>PO5</b></td><td>Safety, Ethics &amp; Compliance</td><td>Act responsibly regarding public safety, professional ethics, organizational policy and national regulation.</td></tr>
+      <tr><td class="c"><b>PO6</b></td><td>Teamwork &amp; Communication</td><td>Coordinate with operations, IT, vendors and management during normal and incident conditions.</td></tr>
+      <tr><td class="c"><b>PO7</b></td><td>Continuous Learning</td><td>Sustain awareness of evolving threats, standards and good practice.</td></tr>
+    </table></div>
+
+    <h3>Course Learning Outcomes (CLO)</h3>
+    <p class="small">Upon successful completion, trainees will be able to:</p>
+    <div class="tw"><table>
+      <tr><th class="c">CLO</th><th>Learning outcome</th><th class="c">Bloom</th><th class="c">Module</th></tr>
+      <tr><td class="c"><b>CLO1</b></td><td><b>Describe</b> the architecture, communication protocols and cyber-relevant weaknesses of distribution SCADA, substations, AMI and vending systems.</td><td class="c">C1&ndash;C2</td><td class="c"><a href="#m1">M1</a></td></tr>
+      <tr><td class="c"><b>CLO2</b></td><td><b>Analyze</b> the Ukraine 2015 and Industroyer (2016) incidents to trace attacker stages and identify the control gaps that were exploited.</td><td class="c">C4</td><td class="c"><a href="#m1">M1</a></td></tr>
+      <tr><td class="c"><b>CLO3</b></td><td><b>Apply</b> role-based access control, multi-factor authentication, privileged access and network segmentation to grid operational environments.</td><td class="c">C3</td><td class="c"><a href="#m2">M2</a></td></tr>
+      <tr><td class="c"><b>CLO4</b></td><td><b>Configure</b> secure metering communication using DLMS/COSEM security features and key management principles.</td><td class="c">C3</td><td class="c"><a href="#m2">M2</a></td></tr>
+      <tr><td class="c"><b>CLO5</b></td><td><b>Evaluate</b> RTU/IED security posture and vendor offerings against hardening baselines and secure procurement criteria.</td><td class="c">C5</td><td class="c"><a href="#m2">M2</a></td></tr>
+      <tr><td class="c"><b>CLO6</b></td><td><b>Analyze</b> network traffic and logs to detect anomalous or unauthorized control and metering commands.</td><td class="c">C4</td><td class="c"><a href="#m3">M3</a></td></tr>
+      <tr><td class="c"><b>CLO7</b></td><td><b>Design</b> two-person approval controls for bulk disconnection and a manual restoration procedure.</td><td class="c">C6</td><td class="c"><a href="#m3">M3</a></td></tr>
+      <tr><td class="c"><b>CLO8</b></td><td><b>Develop</b> an incident response and recovery plan, and demonstrate coordinated team response in a tabletop exercise.</td><td class="c">C6</td><td class="c"><a href="#m3">M3</a></td></tr>
+    </table></div>
+
+    <h3>CLO&ndash;PO mapping</h3>
+    <p class="small">H = High, M = Medium, L = Low contribution</p>
+    <div class="tw"><table>
+      <tr><th>CLO</th><th class="c">PO1</th><th class="c">PO2</th><th class="c">PO3</th><th class="c">PO4</th><th class="c">PO5</th><th class="c">PO6</th><th class="c">PO7</th></tr>
+      <tr><td><b>CLO1</b></td><td class="c"><b>H</b></td><td class="c">M</td><td></td><td></td><td class="c">L</td><td></td><td class="c">M</td></tr>
+      <tr><td><b>CLO2</b></td><td class="c">M</td><td class="c"><b>H</b></td><td></td><td class="c">L</td><td class="c">M</td><td></td><td class="c">M</td></tr>
+      <tr><td><b>CLO3</b></td><td class="c">M</td><td class="c">M</td><td class="c"><b>H</b></td><td class="c">M</td><td class="c">M</td><td></td><td></td></tr>
+      <tr><td><b>CLO4</b></td><td class="c"><b>H</b></td><td></td><td class="c"><b>H</b></td><td class="c"><b>H</b></td><td></td><td></td><td></td></tr>
+      <tr><td><b>CLO5</b></td><td class="c">M</td><td class="c"><b>H</b></td><td class="c"><b>H</b></td><td></td><td class="c">M</td><td class="c">M</td><td></td></tr>
+      <tr><td><b>CLO6</b></td><td class="c">M</td><td class="c"><b>H</b></td><td></td><td class="c"><b>H</b></td><td></td><td class="c">L</td><td></td></tr>
+      <tr><td><b>CLO7</b></td><td class="c">M</td><td class="c">M</td><td class="c"><b>H</b></td><td></td><td class="c"><b>H</b></td><td class="c"><b>H</b></td><td></td></tr>
+      <tr><td><b>CLO8</b></td><td class="c">M</td><td class="c">M</td><td class="c"><b>H</b></td><td class="c">M</td><td class="c"><b>H</b></td><td class="c"><b>H</b></td><td class="c">M</td></tr>
+    </table></div>
+
+    <h3>Outcome &rarr; delivery &rarr; assessment alignment</h3>
+    <div class="tw"><table>
+      <tr><th>CLO</th><th>Teaching method</th><th>Assessment evidence</th></tr>
+      <tr><td>CLO1</td><td>Lecture, architecture walkthrough, Lab 1.1</td><td>Quiz 1 (items 1&ndash;5), Lab 1.1 worksheet</td></tr>
+      <tr><td>CLO2</td><td>Case-study discussion, ATT&amp;CK-for-ICS mapping, Lab 1.2</td><td>Quiz 1 (items 6&ndash;10), ATT&amp;CK mapping sheet</td></tr>
+      <tr><td>CLO3</td><td>Demonstration, hands-on Lab 2.1</td><td>Quiz 2 (items 1&ndash;4), Lab 2.1 RBAC matrix</td></tr>
+      <tr><td>CLO4</td><td>Simulator-based Lab 2.2</td><td>Quiz 2 (items 5&ndash;7), Lab 2.2 report</td></tr>
+      <tr><td>CLO5</td><td>Audit checklist, Lab 2.3, Lab 2.4</td><td>Quiz 2 (items 8&ndash;10), audit and procurement worksheets</td></tr>
+      <tr><td>CLO6</td><td>Pcap/log analysis, Lab 3.1</td><td>Quiz 3 (items 1&ndash;4), Lab 3.1 findings</td></tr>
+      <tr><td>CLO7</td><td>Workflow design, Labs 3.2 and 3.3</td><td>Quiz 3 (items 5&ndash;8), workflow and SOP deliverables</td></tr>
+      <tr><td>CLO8</td><td>Tabletop exercise, Lab 3.4</td><td>Quiz 3 (items 9&ndash;10), IR plan and exercise debrief</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ======================= MODULES (rendered by JS) ======================= -->
+<section id="m1"><div class="wrap" id="m1-body"></div></section>
+<section id="m2"><div class="wrap" id="m2-body"></div></section>
+<section id="m3"><div class="wrap" id="m3-body"></div></section>
+
+<!-- ======================= QUIZZES ======================= -->
+<section id="quizzes">
+  <div class="wrap">
+    <h2>Quizzes</h2>
+    <p>Each quiz: <b>10 items &times; 1 mark</b>, 30 minutes, closed book (one A4 notes sheet allowed). Format: 7 MCQ / true-false / matching + 3 short structured answers. The practice questions below are ungraded self-checks; the official quizzes are held after each module.</p>
+    <div class="tw"><table>
+      <tr><th>Quiz</th><th>Bloom blueprint (items)</th><th>CLOs</th></tr>
+      <tr><td><b>Quiz 1</b> (after M1)</td><td>Remember C1 &times; 3 &middot; Understand C2 &times; 4 &middot; Analyze C4 &times; 3</td><td>CLO1, CLO2</td></tr>
+      <tr><td><b>Quiz 2</b> (after M2)</td><td>Understand C2 &times; 2 &middot; Apply C3 &times; 4 &middot; Analyze C4 &times; 2 &middot; Evaluate C5 &times; 2</td><td>CLO3, CLO4, CLO5</td></tr>
+      <tr><td><b>Quiz 3</b> (after M3)</td><td>Apply C3 &times; 2 &middot; Analyze C4 &times; 3 &middot; Evaluate C5 &times; 2 &middot; Create C6 &times; 3</td><td>CLO6, CLO7, CLO8</td></tr>
+    </table></div>
+    <div id="quiz-body"></div>
+  </div>
+</section>
+
+<!-- ======================= ASSESSMENT ======================= -->
+<section id="assessment">
+  <div class="wrap">
+    <h2>Assessment &amp; Certification Rules</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Marks</h3>
+        <table><tr><th>Component</th><th class="c">Marks</th></tr>
+        <tr><td>Quiz 1 (Module 1)</td><td class="c">10</td></tr>
+        <tr><td>Quiz 2 (Module 2)</td><td class="c">10</td></tr>
+        <tr><td>Quiz 3 (Module 3)</td><td class="c">10</td></tr>
+        <tr><th>Total</th><th class="c">30</th></tr></table>
+      </div>
+      <div class="card"><h3>Certification requirements</h3>
+        <ul>
+          <li>Overall <b>18 / 30 (60%)</b>, with at least <b>4 / 10</b> in every quiz</li>
+          <li>Minimum <b>80% attendance</b> across the 30 hours</li>
+          <li>Satisfactory submission of <b>all lab deliverables</b> (pass / needs-revision)</li>
+          <li>Adherence to lab safety and ethics rules</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Grading bands (suggested)</h3>
+        <table><tr><th>Score</th><th>Result</th></tr>
+        <tr><td>24&ndash;30</td><td>Distinction</td></tr>
+        <tr><td>21&ndash;23</td><td>Merit</td></tr>
+        <tr><td>18&ndash;20</td><td>Pass</td></tr>
+        <tr><td>&lt; 18</td><td>Not yet competent (one re-assessment permitted)</td></tr></table>
+      </div>
+    </div>
+    <div class="note"><b>Optional extension:</b> add a short practical or capstone rubric as formal assessment of CLO7 / CLO8 if you wish to grade labs beyond completion.</div>
+
+    <h3>Score calculator</h3>
+    <div class="card">
+      <div class="row">
+        <label>Quiz 1 <input type="number" id="s1" min="0" max="10" step="0.5" value="0" style="width:70px"></label>
+        <label>Quiz 2 <input type="number" id="s2" min="0" max="10" step="0.5" value="0" style="width:70px"></label>
+        <label>Quiz 3 <input type="number" id="s3" min="0" max="10" step="0.5" value="0" style="width:70px"></label>
+        <label>Attendance % <input type="number" id="att" min="0" max="100" value="100" style="width:70px"></label>
+        <button class="btn small" id="calcBtn">Check result</button>
+      </div>
+      <div class="fb" id="calcOut"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PLAYGROUND ======================= -->
+<section id="playground">
+  <div class="wrap">
+    <h2>Python Playground</h2>
+    <p>Write and run Python 3 directly in your browser (powered by Pyodide, no installation). The first run downloads the Python runtime, so an internet connection is needed once per page load. The labs inside each module use the same runner.</p>
+    <div class="note">Prefer a full online compiler? Paste any lab code into <a href="https://www.online-python.com/" target="_blank" rel="noopener">online-python.com</a> or <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Google Colab</a>. All samples use only the Python standard library.</div>
+    <div id="playground-body"></div>
+  </div>
+</section>
+
+<!-- ======================= RESOURCES ======================= -->
+<section id="resources">
+  <div class="wrap">
+    <h2>Lab Environment, Tools &amp; References</h2>
+
+    <h3>Recommended tools (open source / free where possible)</h3>
+    <div class="tw"><table>
+      <tr><th>Purpose</th><th>Tools</th></tr>
+      <tr><td>Packet analysis</td><td>Wireshark (IEC 104, DNP3, Modbus dissectors)</td></tr>
+      <tr><td>OT-aware monitoring</td><td>Zeek (+ ICS protocol parsers), Suricata, Security Onion or ELK</td></tr>
+      <tr><td>DLMS/COSEM</td><td>Gurux DLMS Director / simulator</td></tr>
+      <tr><td>MFA / identity</td><td>Open-source TOTP authentication (e.g., FreeIPA, Keycloak, privacyIDEA)</td></tr>
+      <tr><td>Virtualization</td><td>VirtualBox or VMware, 8 GB RAM per lab PC recommended</td></tr>
+      <tr><td>Documentation</td><td>Draw.io / diagrams.net, spreadsheet software</td></tr>
+    </table></div>
+    <p><b>Lab infrastructure:</b> isolated training network or air-gapped lab PCs with <b>no connection to any production system</b>; pre-built VM images and sample capture files distributed by the trainer; simulated or fictitious data only (no real customer, meter or key data).</p>
+
+    <h3>&#128274; Rules of Engagement (mandatory)</h3>
+    <ol>
+      <li><b>Defensive purpose only.</b> This course teaches protection, detection and recovery. It does not teach building or deploying attack tools.</li>
+      <li><b>Lab-only practice.</b> Never scan, probe or send traffic to any production or third-party system, in or outside Kaptai.</li>
+      <li><b>No real keys or credentials</b> in the lab; use only lab-generated material.</li>
+      <li><b>Follow safety rules</b> for any physical equipment (permit-to-work, lock-out/tag-out).</li>
+      <li><b>Report</b> any vulnerability you discover in your workplace through the official channel, not informally.</li>
+      <li><b>Confidentiality:</b> do not share sensitive diagrams, configurations or incident details outside authorized channels.</li>
+    </ol>
+
+    <h3>Reading list &amp; references</h3>
+    <p class="small">Titles are listed for guidance; check for the latest editions and official download locations.</p>
+    <div class="grid g3">
+      <div class="card"><h3>Standards &amp; guidance</h3><ul>
+        <li>IEC 62443 series (4-1, 4-2, 3-2, 3-3)</li>
+        <li>IEC 62351 series &mdash; power systems information exchange security</li>
+        <li>IEC 62056 / DLMS-COSEM (DLMS UA Blue &amp; Green Books)</li>
+        <li>NIST SP 800-82 &mdash; Guide to OT Security</li>
+        <li>NIST SP 800-61 &mdash; Incident Handling Guide</li>
+        <li>ISO/IEC 27001 and ISO/IEC 27019 (energy utilities)</li>
+        <li>NERC CIP (as a reference model)</li>
+        <li>MITRE ATT&amp;CK&reg; for ICS</li></ul></div>
+      <div class="card"><h3>Case-study material</h3><ul>
+        <li>E-ISAC / SANS ICS: <i>Analysis of the Cyber Attack on the Ukrainian Power Grid</i> (2016)</li>
+        <li>CISA / ICS-CERT alert on the Ukraine 2015 incident</li>
+        <li>ESET: <i>Win32/Industroyer: A new threat for industrial control systems</i> (2017)</li>
+        <li>Dragos: <i>CRASHOVERRIDE: Analyzing the Threat to Electric Grid Operations</i> (2017)</li>
+        <li>Public analyses of <i>Industroyer2</i> (2022)</li></ul></div>
+      <div class="card"><h3>Bangladesh context (verify current versions)</h3><ul>
+        <li>Cyber Security Act, 2023</li>
+        <li>National Cybersecurity Strategy of Bangladesh</li>
+        <li>BGD e-GOV CIRT advisories and incident-reporting procedures</li></ul></div>
+    </div>
+
+    <h3>Glossary</h3>
+    <details><summary>Open glossary of key terms</summary><div class="dbody"><div class="tw"><table>
+      <tr><td><b>AMI</b></td><td>Advanced Metering Infrastructure</td><td><b>AK / EK / KEK</b></td><td>Authentication Key / Encryption Key / Key-Encrypting Key (DLMS)</td></tr>
+      <tr><td><b>ASDU</b></td><td>Application Service Data Unit (IEC 60870-5)</td><td><b>COSEM</b></td><td>Companion Specification for Energy Metering</td></tr>
+      <tr><td><b>DCU</b></td><td>Data Concentrator Unit</td><td><b>DLMS</b></td><td>Device Language Message Specification</td></tr>
+      <tr><td><b>DMS</b></td><td>Distribution Management System</td><td><b>GMAC / GCM</b></td><td>Galois Message Authentication Code / Galois-Counter Mode</td></tr>
+      <tr><td><b>HES</b></td><td>Head-End System (AMI)</td><td><b>HLS / LLS</b></td><td>High-Level / Low-Level Security (DLMS authentication)</td></tr>
+      <tr><td><b>HSM</b></td><td>Hardware Security Module</td><td><b>IED</b></td><td>Intelligent Electronic Device</td></tr>
+      <tr><td><b>MDMS</b></td><td>Meter Data Management System</td><td><b>MFA</b></td><td>Multi-Factor Authentication</td></tr>
+      <tr><td><b>OT</b></td><td>Operational Technology</td><td><b>PAM</b></td><td>Privileged Access Management</td></tr>
+      <tr><td><b>RBAC</b></td><td>Role-Based Access Control</td><td><b>RTU</b></td><td>Remote Terminal Unit</td></tr>
+      <tr><td><b>SBOM</b></td><td>Software Bill of Materials</td><td><b>SCADA</b></td><td>Supervisory Control and Data Acquisition</td></tr>
+      <tr><td><b>STS</b></td><td>Standard Transfer Specification (prepaid token standard)</td><td></td><td></td></tr>
+    </table></div></div></details>
+
+    <h3>Trainee checklist</h3>
+    <ul>
+      <li>Complete the 30-minute networking primer before Day 1 (if new to IP networking)</li>
+      <li>Bring a laptop (or confirm lab PC allocation) and your institutional ID</li>
+      <li>Read the Rules of Engagement above</li>
+      <li>Bring one real-world question from your own substation or feeder experience for the Module 3 discussion</li>
+      <li>Review module notes the evening before each quiz</li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Course</h4>
+        <p style="margin:0"><b>Cybersecurity for Power Grid &amp; SCADA/OT Systems</b><br>Professional Certificate for Assistant Engineers, Kaptai Power Grid, Bangladesh.<br>30 hours &middot; Outcome-Based &middot; Bloom&rsquo;s Taxonomy</p>
+      </div>
+      <div>
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="#outcomes">Outcomes (PO / CLO)</a></li>
+          <li><a href="#m1">Module 1</a> &middot; <a href="#m2">Module 2</a> &middot; <a href="#m3">Module 3</a></li>
+          <li><a href="#quizzes">Quizzes</a> &middot; <a href="#assessment">Assessment</a></li>
+          <li><a href="#playground">Python Playground</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Developed by</h4>
+        <p style="margin:0 0 6px"><b>Dr Ziaur Rahman</b></p>
+        <ul>
+          <li>&#127760; Website: <a href="https://rahmanziaur.github.io/" target="_blank" rel="noopener">rahmanziaur.github.io</a></li>
+          <li>&#127891; Academic Profile: <a href="https://ict.mbstu.ac.bd/teacher/dr-ziaur-rahman" target="_blank" rel="noopener">ict.mbstu.ac.bd/teacher/dr-ziaur-rahman</a></li>
+          <li>&#128188; LinkedIn: <a href="https://www.linkedin.com/in/ziaiut/" target="_blank" rel="noopener">linkedin.com/in/ziaiut</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      &copy; <span id="yr">2026</span> Dr Ziaur Rahman. Educational material for authorized, defensive training only. All code samples use synthetic data and must never be used against live systems.
+    </div>
+  </div>
+</footer>
+<button class="btn" id="toTop" title="Back to top">&uarr; Top</button>
+
+<script>
+/* =====================================================================
+   PYTHON LAB SAMPLES  (standard library only, synthetic data, defensive)
+   ===================================================================== */
+const PY = {
+
+lab11: String.raw`# Lab 1.1 - Purdue-level asset inventory and risk ranking (synthetic data)
+# Columns: name, Purdue level, protocol, reachable from IT/vendor zone?, default credentials?
+assets = [
+    ("Breaker relay IED-01",        1, "IEC 61850 GOOSE",  False, False),
+    ("RTU-Feeder-3",                1, "IEC 60870-5-104",  False, True),
+    ("Serial-to-Ethernet gateway",  1, "Modbus RTU/TCP",   False, True),
+    ("Substation HMI",              2, "Modbus TCP",       False, False),
+    ("SCADA master",                3, "IEC 60870-5-104",  False, False),
+    ("Historian",                   3, "OPC DA",           True,  False),
+    ("Vendor VPN concentrator",     4, "IPsec",            True,  False),
+    ("Corporate laptop",            5, "HTTPS",            True,  False),
+]
+
+# Protocols that carry commands without native authentication (base standards)
+weak_protocols = {"IEC 60870-5-104", "Modbus TCP", "Modbus RTU/TCP",
+                  "IEC 61850 GOOSE", "OPC DA"}
+
+def risk(asset):
+    name, level, proto, it_facing, default_cred = asset
+    score = 0
+    if proto in weak_protocols: score += 2   # unauthenticated protocol
+    if it_facing:               score += 2   # reachable from IT / vendor side
+    if default_cred:            score += 3   # default credentials
+    if level <= 2:              score += 1   # close to the physical process
+    return score
+
+print("Top 5 risk points")
+print("-" * 62)
+for a in sorted(assets, key=risk, reverse=True)[:5]:
+    print(f"score {risk(a):>2} | L{a[1]} | {a[0]:<28} | {a[2]}")
+
+print()
+print("IT/OT boundary crossings to review (remote access, vendor links):")
+for a in assets:
+    if a[3]:
+        print(" -", a[0])
+`,
+
+lab12: String.raw`# Lab 1.2 / Case Study - Map the Ukraine 2015 attack stages to controls
+# Indicative mapping for discussion; verify against the current MITRE ATT&CK for ICS matrix.
+stages = [
+    ("Spear-phishing with malicious Office document", "Initial Access",           "Preventive", "Email filtering, macro blocking, awareness training"),
+    ("Credential theft inside the IT network",        "Credential Access (IT)",   "Preventive", "MFA, privileged account management, unique admin accounts"),
+    ("Remote access into OT via VPN",                 "Lateral Movement / Remote Services", "Preventive", "IT/OT segmentation, MFA on remote access, jump host"),
+    ("Studying the SCADA / HMI environment",          "Discovery",                "Detective",  "Monitor new sessions and unusual HMI usage"),
+    ("Opening breakers through operators' own HMI",   "Impair Process Control",   "Detective",  "Command monitoring, dual authorization for bulk operations"),
+    ("Overwriting serial-to-Ethernet converter firmware", "Inhibit Response Function", "Preventive", "Signed firmware, change control, spare gateways"),
+    ("Wiper malware (KillDisk) on workstations",      "Impact",                   "Recovery",   "Offline golden backups, rebuild procedures"),
+    ("Telephone denial-of-service on call centres",   "Impact",                   "Recovery",   "Business-continuity plan, alternate customer channels"),
+]
+
+for kind in ("Preventive", "Detective", "Recovery"):
+    print(f"=== {kind} controls ===")
+    for event, tactic, k, control in stages:
+        if k == kind:
+            print(f"* {event}")
+            print(f"    tactic : {tactic}")
+            print(f"    control: {control}")
+    print()
+
+print("Discussion: which single preventive control would have broken the most stages?")
+`,
+
+lab21: String.raw`# Lab 2.1 - Role-Based Access Control with MFA and independent approval
+ROLES = {
+    "viewer":          {"view"},
+    "operator":        {"view", "operate_breaker"},
+    "senior_operator": {"view", "operate_breaker", "bulk_switch", "bulk_disconnect"},
+    "engineer":        {"view", "change_rtu_config"},
+    "admin":           {"view", "manage_users"},
+    "vendor":          {"view", "change_rtu_config"},   # time-limited in real life
+}
+PRIVILEGED     = {"operate_breaker", "bulk_switch", "bulk_disconnect",
+                  "change_rtu_config", "manage_users"}
+NEEDS_APPROVAL = {"bulk_switch", "bulk_disconnect"}
+
+def authorize(user, role, action, mfa_ok, approver=None):
+    if action not in ROLES.get(role, set()):
+        return False, "DENY: role lacks permission"
+    if action in PRIVILEGED and not mfa_ok:
+        return False, "DENY: MFA required for privileged action"
+    if action in NEEDS_APPROVAL and (not approver or approver == user):
+        return False, "DENY: independent second approver required"
+    return True, "ALLOW"
+
+tests = [
+    ("rahim",  "viewer",          "operate_breaker",   True,  None),
+    ("karim",  "operator",        "operate_breaker",   False, None),
+    ("karim",  "operator",        "operate_breaker",   True,  None),
+    ("salma",  "senior_operator", "bulk_disconnect",   True,  None),
+    ("salma",  "senior_operator", "bulk_disconnect",   True,  "salma"),
+    ("salma",  "senior_operator", "bulk_disconnect",   True,  "nasir"),
+    ("vendor1","vendor",          "manage_users",      True,  None),
+]
+for t in tests:
+    ok, msg = authorize(*t)
+    print(f"{t[0]:<8} {t[1]:<16} {t[2]:<18} mfa={str(t[3]):<5} approver={str(t[4]):<6} -> {msg}")
+`,
+
+lab22: String.raw`# Lab 2.2 - Concept demo: per-meter keys, authenticated commands, replay protection
+# NOTE: Real DLMS/COSEM uses AES-GCM / GMAC with security suites. This teaching demo uses
+# HMAC-SHA256 from the standard library to show the SAME ideas: unique keys, authentication
+# tags, and an invocation counter that rejects replays. Never use lab keys in production.
+import hmac, hashlib, secrets
+
+def make_tag(serial, key, counter, command):
+    msg = f"{serial}|{counter}|{command}".encode()
+    return hmac.new(key, msg, hashlib.sha256).digest()[:12]
+
+class Meter:
+    def __init__(self, serial, key):
+        self.serial, self.key, self.last_counter = serial, key, 0
+    def receive(self, counter, command, tag):
+        good = make_tag(self.serial, self.key, counter, command)
+        if not hmac.compare_digest(good, tag):
+            return "REJECT: authentication failed"
+        if counter <= self.last_counter:
+            return "REJECT: replayed / stale invocation counter"
+        self.last_counter = counter
+        return f"ACCEPT: {command}"
+
+# Unique key per meter (never one fleet-wide default key)
+keys   = {s: secrets.token_bytes(16) for s in ("BD-0001", "BD-0002")}
+meters = {s: Meter(s, k) for s, k in keys.items()}
+
+cmd = "READ_ENERGY_REGISTER"
+print("1 valid command  :", meters["BD-0001"].receive(1, cmd, make_tag("BD-0001", keys["BD-0001"], 1, cmd)))
+print("2 replayed frame :", meters["BD-0001"].receive(1, cmd, make_tag("BD-0001", keys["BD-0001"], 1, cmd)))
+print("3 tampered cmd   :", meters["BD-0001"].receive(2, "REMOTE_DISCONNECT", make_tag("BD-0001", keys["BD-0001"], 2, cmd)))
+print("4 wrong meter key:", meters["BD-0001"].receive(3, "REMOTE_DISCONNECT", make_tag("BD-0001", keys["BD-0002"], 3, "REMOTE_DISCONNECT")))
+print("5 valid disconnect:", meters["BD-0001"].receive(4, "REMOTE_DISCONNECT", make_tag("BD-0001", keys["BD-0001"], 4, "REMOTE_DISCONNECT")))
+
+print("\nKey lifecycle checklist (complete this table in your lab report):")
+for step, rule in [("Generation", "Random, per meter, inside an HSM or key server"),
+                   ("Storage",    "Utility-owned; never in spreadsheets or e-mail"),
+                   ("Injection",  "Dual control, logged key ceremony at commissioning"),
+                   ("Rotation",   "Scheduled plan + after any suspected compromise"),
+                   ("Revocation", "Immediate on meter decommission or loss")]:
+    print(f" {step:<11}: {rule}")
+`,
+
+lab23: String.raw`# Lab 2.3 - RTU/IED hardening audit scorer (synthetic configuration)
+checklist = [
+    # key,                      description,                              weight
+    ("default_creds_changed",   "Default credentials changed",             5),
+    ("unused_services_off",     "Unused services/ports disabled",          4),
+    ("secure_mgmt_protocols",   "TLS/SSH/SNMPv3 for management",           3),
+    ("mgmt_subnet_restricted",  "Management limited to engineering subnet",3),
+    ("signed_firmware_only",    "Signed firmware only",                    4),
+    ("config_backup_baseline",  "Config backup + baseline comparison",     2),
+    ("time_sync_authenticated", "Authenticated time source",               2),
+    ("physical_ports_locked",   "Cabinet locked, USB/ports blocked",       3),
+]
+
+# Findings for a fictitious RTU: True = compliant, False = non-compliant
+device = {
+    "default_creds_changed":   False,
+    "unused_services_off":     False,   # Telnet + HTTP still enabled
+    "secure_mgmt_protocols":   True,
+    "mgmt_subnet_restricted":  True,
+    "signed_firmware_only":    False,
+    "config_backup_baseline":  True,
+    "time_sync_authenticated": False,
+    "physical_ports_locked":   True,
+}
+
+total = sum(w for _, _, w in checklist)
+got   = sum(w for k, _, w in checklist if device[k])
+print(f"Hardening score: {got}/{total} = {100*got/total:.0f}%\n")
+
+fails = [(w, d) for k, d, w in checklist if not device[k]]
+print("Top findings (highest weight first):")
+for w, d in sorted(fails, reverse=True)[:3]:
+    print(f" [weight {w}] {d}")
+
+print("\nFor items that cannot be patched quickly, record a compensating control "
+      "(e.g., firewall rule, monitoring, physical isolation) with an owner and due date.")
+`,
+
+lab24: String.raw`# Lab 2.4 - Weighted secure-procurement scoring of two fictitious AMI vendors
+# Scores: 0 = missing, 1 = partial, 2 = fully meets requirement
+criteria = {
+    "IEC 62443 alignment (4-1 / 4-2)":          3,
+    "Unique per-meter keys, no default key":    5,
+    "SBOM provided":                            3,
+    "Signed firmware and secure update":        4,
+    "Vulnerability disclosure + patch SLA":     3,
+    "Defined support lifetime":                 2,
+    "Utility owns keys and data":               4,
+    "Controlled, logged vendor remote access":  3,
+    "Security tests in FAT/SAT":                3,
+}
+vendors = {
+    "Vendor A": [1, 0, 0, 2, 1, 1, 0, 1, 1],
+    "Vendor B": [2, 2, 2, 2, 1, 2, 2, 2, 1],
+}
+max_score = sum(w * 2 for w in criteria.values())
+for name, scores in vendors.items():
+    total = sum(s * w for s, w in zip(scores, criteria.values()))
+    print(f"{name}: {total}/{max_score} ({100*total/max_score:.0f}%)")
+    gaps = [c for c, s in zip(criteria, scores) if s == 0]
+    print("   Missing clauses:", ", ".join(gaps) if gaps else "none")
+
+best = max(vendors, key=lambda v: sum(s*w for s, w in zip(vendors[v], criteria.values())))
+print(f"\nShortlist: {best}  (write a 5-line justification in your worksheet)")
+`,
+
+lab31: String.raw`# Lab 3.1 - Rule-based detection on a synthetic control-command log
+from collections import defaultdict
+
+ALLOWED_MASTERS = {"10.10.1.5", "10.10.1.6"}
+
+# (timestamp, source IP, target, event type, user)
+events = [
+    ("2026-10-05 10:00:01", "10.10.1.5",  "RTU-3", "poll",        "-"),
+    ("2026-10-05 10:00:11", "10.10.1.5",  "RTU-3", "poll",        "-"),
+    ("2026-10-05 11:30:40", "10.10.1.6",  "RTU-5", "control_open","scada_op1"),
+    ("2026-10-05 22:14:02", "10.20.9.9",  "RTU-3", "control_open","-"),
+    ("2026-10-05 22:14:09", "10.20.9.9",  "RTU-4", "control_open","-"),
+    ("2026-10-05 22:14:15", "10.20.9.9",  "RTU-5", "control_open","-"),
+    ("2026-10-05 22:14:21", "10.20.9.9",  "RTU-6", "control_open","-"),
+    ("2026-10-05 22:14:30", "10.20.9.9",  "RTU-7", "control_open","-"),
+    ("2026-10-06 02:14:55", "10.30.0.12", "JUMPHOST","admin_login","vendor_admin"),
+]
+
+alerts = []
+
+# Rule 1: control command from a source that is not an approved master
+for ts, src, dst, kind, user in events:
+    if kind.startswith("control") and src not in ALLOWED_MASTERS:
+        alerts.append((ts, "R1 Unauthorized control source", f"{src} -> {dst}"))
+
+# Rule 2: burst of control commands from one source within the same minute
+per_minute = defaultdict(int)
+for ts, src, dst, kind, user in events:
+    if kind.startswith("control"):
+        per_minute[(src, ts[:16])] += 1
+for (src, minute), n in per_minute.items():
+    if n >= 4:
+        alerts.append((minute + ":00", "R2 Burst of control commands", f"{src}: {n} in 1 minute"))
+
+# Rule 3: privileged login outside working hours (06:00-20:00)
+for ts, src, dst, kind, user in events:
+    hour = int(ts[11:13])
+    if kind == "admin_login" and (hour < 6 or hour >= 20):
+        alerts.append((ts, "R3 Off-hours admin login", f"user={user} from {src}"))
+
+print("INCIDENT TIMELINE")
+print("-" * 70)
+for ts, rule, detail in sorted(alerts):
+    print(f"{ts} | {rule:<30} | {detail}")
+print(f"\nTotal alerts: {len(alerts)}. Next step: triage - correlate with work orders and call the control room.")
+`,
+
+lab32: String.raw`# Lab 3.2 - Two-person (four-eyes) approval for bulk meter disconnection
+from datetime import datetime, timedelta
+
+SINGLE_PERSON_LIMIT = 20      # meters a single operator may handle alone
+MAX_BATCH           = 1000    # absolute maximum per request
+APPROVAL_VALID_MIN  = 15      # approval expires after 15 minutes
+audit_log = []
+
+def log(msg):
+    audit_log.append(f"{datetime(2026,10,6,9,0)+timedelta(minutes=len(audit_log))} | {msg}")
+
+def request_bulk_disconnect(initiator, count, work_order,
+                            approver=None, approver_mfa=False,
+                            callback_confirmed=False, approval_age_min=0):
+    if count > MAX_BATCH:
+        log(f"DENY  {initiator} count={count}: exceeds batch limit")
+        return "DENY: exceeds batch limit - split and re-justify"
+    if count <= SINGLE_PERSON_LIMIT:
+        log(f"ALLOW {initiator} count={count}: below threshold")
+        return "ALLOW: below approval threshold (logged)"
+    if not work_order:
+        log(f"DENY  {initiator} count={count}: no work order")
+        return "DENY: no valid work order / business justification"
+    if not approver or approver == initiator:
+        log(f"DENY  {initiator} count={count}: no independent approver")
+        return "DENY: independent second approver required"
+    if not approver_mfa:
+        return "DENY: approver must authenticate with MFA"
+    if not callback_confirmed:
+        log(f"HOLD  {initiator} count={count}: awaiting out-of-band confirmation")
+        return "HOLD: out-of-band (phone) confirmation pending"
+    if approval_age_min > APPROVAL_VALID_MIN:
+        log(f"DENY  {initiator} count={count}: approval expired")
+        return "DENY: approval expired - re-approve"
+    log(f"ALLOW {initiator} count={count} approved by {approver} WO={work_order}")
+    return "ALLOW: executed within batch and rate limits; SOC alerted"
+
+print("1 Planned load-shedding   :", request_bulk_disconnect("op_a", 300, "WO-1201", "eng_b", True, True, 3))
+print("2 Non-payment batch (40)  :", request_bulk_disconnect("op_a", 40, "WO-1202", "eng_b", True, False))
+print("3 Suspicious 5000 request :", request_bulk_disconnect("op_a", 5000, None, "op_a", True, True))
+print("4 Self-approval attempt   :", request_bulk_disconnect("op_a", 150, "WO-1203", "op_a", True, True))
+print("5 Stale approval          :", request_bulk_disconnect("op_a", 150, "WO-1204", "eng_b", True, True, 45))
+print("6 Small fix (5 meters)    :", request_bulk_disconnect("op_a", 5, "WO-1205"))
+
+print("\nAUDIT LOG")
+for line in audit_log:
+    print(" ", line)
+print("\nDesign task: define your break-glass rule and its mandatory post-event review.")
+`,
+
+lab33: String.raw`# Lab 3.3 - Staged manual restoration planner (synthetic substation, 6 feeders)
+# Feeder: (name, priority 1 = highest, load in MW)
+feeders = [
+    ("F1 Hospital / water pumping", 1, 2.5),
+    ("F2 Industrial park",          3, 6.0),
+    ("F3 Residential north",        2, 4.0),
+    ("F4 Residential south",        2, 3.5),
+    ("F5 Commercial centre",        3, 3.0),
+    ("F6 Agricultural",             4, 2.0),
+]
+STAGE_LIMIT_MW = 8.0   # re-energize in steps to avoid cold-load pickup problems
+
+pending = sorted(feeders, key=lambda f: (f[1], f[2]))
+stages, current, load = [], [], 0.0
+for f in pending:
+    if load + f[2] > STAGE_LIMIT_MW and current:
+        stages.append((current, load)); current, load = [], 0.0
+    current.append(f); load += f[2]
+if current:
+    stages.append((current, load))
+
+print("MANUAL RESTORATION SEQUENCE (SCADA unavailable)")
+print("Pre-checks: safety officer briefed | permits issued | LOTO verified | radio/phone link tested")
+print("-" * 68)
+for i, (grp, mw) in enumerate(stages, 1):
+    print(f"Stage {i}  (total {mw:.1f} MW)")
+    for name, pr, mw_f in grp:
+        print(f"   close local breaker: {name:<30} P{pr}  {mw_f} MW")
+    print("   hold, confirm voltage/load stable, report to control room")
+print("-" * 68)
+print("Before returning to remote operation: verify device integrity and restore from OFFLINE golden configs.")
+`,
+
+play: String.raw`# Python Playground - try your own code here (standard library only)
+# Example: classify a protocol list by whether it has native authentication.
+protocols = {
+    "IEC 60870-5-104": False,
+    "DNP3 (no SA)": False,
+    "DNP3 + Secure Authentication": True,
+    "IEC 104 + IEC 62351-3 (TLS)": True,
+    "DLMS/COSEM HLS + AES-GCM": True,
+}
+for name, secured in protocols.items():
+    print(f"{name:<32} -> {'protected' if secured else 'needs compensating controls'}")
+`
+};
+
+/* =====================================================================
+   COURSE DATA
+   ===================================================================== */
+const MODULES = [
+{
+ id:"m1", num:1, icon:"&#128216;",
+ title:"Foundations, Threat Landscape & Case Studies", hours:"10 h", theory:"7.5 h", lab:"2.0 h",
+ focus:"Understand what we are protecting, who and what threatens it, and what real attacks teach us.",
+ clos:["CLO1 (C1&ndash;C2)","CLO2 (C4)"],
+ objectives:[
+  "<b>List</b> the main components of a distribution SCADA, substation automation, AMI and vending system <i>(C1)</i>",
+  "<b>Explain</b> how IT and OT security priorities differ (safety, availability, integrity, confidentiality) <i>(C2)</i>",
+  "<b>Describe</b> why legacy protocols (IEC 60870-5-101/104, DNP3, Modbus) are exposed when connected to routable networks <i>(C2)</i>",
+  "<b>Differentiate</b> attack surfaces across SCADA, substations, AMI and vending systems <i>(C4)</i>",
+  "<b>Trace</b> the stages of the 2015 and 2016 Ukraine attacks against a framework such as MITRE ATT&amp;CK for ICS <i>(C4)</i>"
+ ],
+ sessions:[
+  {id:"1.1", title:"Grid OT Fundamentals", type:"Theory", time:"1.5 h", html:`
+   <ul>
+    <li>Generation, transmission and distribution value chain; where Kaptai&rsquo;s assets fit</li>
+    <li>Control hierarchy: field devices &rarr; RTU/IED &rarr; substation gateway &rarr; SCADA/DMS &rarr; control centre</li>
+    <li><b>IT vs OT:</b> safety and availability first; long asset life (15&ndash;30 years); legacy and proprietary protocols; patching constraints; real-time determinism</li>
+    <li>The OT security triad: <b>Safety and Availability &gt; Integrity &gt; Confidentiality</b></li>
+    <li>Why cyber incidents on the grid are <i>physical</i> incidents (outages, equipment damage, safety risk)</li>
+    <li>Primer: IP addressing, switches/routers, firewalls, VLANs, serial-to-Ethernet gateways</li>
+   </ul>`},
+  {id:"1.2", title:"Architectures and Protocols", type:"Theory", time:"2.0 h", html:`
+   <ul>
+    <li><b>Distribution SCADA/DMS:</b> master station, front-end processor, HMI, historian, remote access</li>
+    <li><b>Substation automation:</b> RTUs, IEDs and relays, merging units, substation HMI and gateway, time synchronization</li>
+    <li><b>AMI architecture:</b> smart meter &rarr; data concentrator/DCU &rarr; communication network (RF mesh, PLC, GPRS/cellular) &rarr; Head-End System (HES) &rarr; MDMS &rarr; billing</li>
+    <li><b>Prepaid / vending systems:</b> vending station, token generation (STS), Hardware Security Module (HSM), key management, token loading</li>
+    <li>Remote disconnect/reconnect relays in meters: the feature that makes AMI both useful and dangerous</li>
+   </ul>
+   <div class="tw"><table>
+    <tr><th>Protocol</th><th>Typical use</th><th>Native security weakness</th></tr>
+    <tr><td>IEC 60870-5-101/104</td><td>SCADA &harr; RTU</td><td>No authentication or encryption in base standard</td></tr>
+    <tr><td>DNP3</td><td>SCADA &harr; RTU/IED</td><td>Authentication only with Secure Authentication (SA) extension</td></tr>
+    <tr><td>Modbus RTU/TCP</td><td>Field devices</td><td>No authentication, plain commands</td></tr>
+    <tr><td>IEC 61850 (MMS/GOOSE/SV)</td><td>Substation automation</td><td>GOOSE/SV multicast is unauthenticated by default</td></tr>
+    <tr><td>DLMS/COSEM (IEC 62056)</td><td>Smart meters</td><td>Security is <b>optional and must be enabled</b></td></tr>
+    <tr><td>OPC DA / UA</td><td>Data integration</td><td>DA relies on legacy DCOM; UA has built-in security if configured</td></tr>
+   </table></div>`},
+  {id:"1.3", title:"Threat Landscape and Attack Surfaces", type:"Theory", time:"1.5 h", html:`
+   <ul>
+    <li>Threat actor categories: nation-state, criminal (ransomware), hacktivist, insider, negligent insider, supply chain</li>
+    <li>Introduction to <b>MITRE ATT&amp;CK for ICS</b> and the ICS cyber kill chain concept</li>
+    <li>Consequence scale: single feeder &rarr; substation &rarr; regional outage &rarr; cascading effects</li>
+   </ul>
+   <div class="tw"><table>
+    <tr><th>Asset</th><th>Example exposure</th></tr>
+    <tr><td>Distribution SCADA</td><td>Corporate-to-OT pivot, remote access/VPN, shared credentials, flat networks</td></tr>
+    <tr><td>Substations</td><td>Weak physical security, default passwords, exposed engineering ports, unsecured serial gateways</td></tr>
+    <tr><td>AMI</td><td>Weak or default meter keys, HES compromise, exposed DCU services, mass remote-disconnect abuse</td></tr>
+    <tr><td>Vending</td><td>Stolen operator credentials, compromised key store, token-generation abuse, fraud</td></tr>
+    <tr><td>People and process</td><td>Phishing, shared accounts, vendor remote access, lack of change control</td></tr>
+   </table></div>`},
+  {id:"1.4", title:"Case Study A: Ukraine Distribution Grid Attack, 23 Dec 2015", type:"Case study", time:"1.25 h", html:`
+   <p><i>Focus on lessons for defenders.</i></p>
+   <ul>
+    <li><b>Impact (publicly reported):</b> three regional distribution companies affected; roughly 225,000 customers lost power for several hours; service restored mostly by <b>manual operation</b> of breakers.</li>
+    <li><b>Attack stages (high level):</b>
+      <ol>
+       <li>Months of IT-network intrusion (spear-phishing with malicious Office documents)</li>
+       <li>Credential theft and movement into the OT environment via <b>VPN access</b> and weak segmentation</li>
+       <li>Preparation: attackers studied SCADA/HMI and operations</li>
+       <li>Execution: operators&rsquo; own SCADA/HMI used to open breakers; firmware of serial-to-Ethernet converters corrupted; UPS systems targeted; wiper malware (KillDisk); telephone denial-of-service on customer call centres</li>
+       <li>Recovery depended on staff who could operate breakers manually</li>
+      </ol></li>
+    <li><b>Defender lessons:</b> segmentation of IT/OT, MFA on remote access, privileged-account control, firmware integrity, monitoring of operator commands, maintained manual-operation capability</li>
+    <li><b>Group exercise (20 min):</b> map each stage to ATT&amp;CK for ICS and to a preventive / detective / recovery control (use the Python lab below).</li>
+   </ul>`},
+  {id:"1.5", title:"Case Study B: Industroyer / CrashOverride, 17 Dec 2016", type:"Case study", time:"1.25 h", html:`
+   <ul>
+    <li><b>Impact (publicly reported):</b> transmission substation near Kyiv; about an hour-long outage with significant load lost; recovered by operators.</li>
+    <li><b>Why it matters:</b> first widely documented malware framework built to <i>speak grid protocols natively</i>
+      <ul>
+       <li>Payload modules for <b>IEC 60870-5-101, IEC 60870-5-104, IEC 61850 and OPC DA</b></li>
+       <li>Included a wiper component and a protection-relay denial-of-service component</li>
+      </ul></li>
+    <li><b>Key insight:</b> protocols without authentication let any party that reaches the network issue valid-looking commands. A follow-on variant (&ldquo;Industroyer2&rdquo;) appeared in 2022 targeting IEC-104.</li>
+    <li><b>Defender lessons:</b> network allow-listing of command sources, protocol-aware inspection, authenticated protocols (IEC 62351 / DNP3-SA), baseline of normal control traffic, offline backups</li>
+   </ul>
+   <div class="tw"><table>
+    <tr><th>Dimension</th><th>2015</th><th>2016</th></tr>
+    <tr><td>Level attacked</td><td>Distribution control (operators&rsquo; HMI)</td><td>Transmission substation devices</td></tr>
+    <tr><td>Method of control</td><td>Remote use of existing operator tools</td><td>Custom malware speaking native protocols</td></tr>
+    <tr><td>Automation level</td><td>Largely manual attacker actions</td><td>Automated and scalable</td></tr>
+    <tr><td>Recovery</td><td>Manual breaker operation</td><td>Operator manual restoration</td></tr>
+    <tr><td>Principal gaps</td><td>Remote access, segmentation, credentials</td><td>Protocol authentication, monitoring</td></tr>
+   </table></div>`}
+ ],
+ labs:[
+  {id:"Lab 1.1", title:"Purdue Model and Asset Mapping of a Sample Substation", time:"1.0 h", clo:"CLO1", bloom:"C2 / C4", py:"lab11",
+   objective:"Classify assets and data flows, and identify trust boundaries.",
+   setup:"Printed/PDF single-line and communication diagram of a <b>fictitious</b> 33/11 kV substation + control centre. Python sample below scores the same inventory.",
+   tasks:"(1) List all devices and place them on Purdue levels 0&ndash;5. (2) Mark every protocol and data flow. (3) Highlight points where IT touches OT (remote access, vendor links, USB, modems). (4) Rank the top 5 risk points.",
+   deliverable:"Annotated diagram + asset inventory table (device, function, protocol, owner, criticality)"},
+  {id:"Lab 1.2", title:"Passive Protocol Traffic Analysis + Ukraine 2015 Mapping", time:"1.0 h", clo:"CLO1, CLO2", bloom:"C3 / C4", py:"lab12",
+   objective:"See firsthand that classic OT protocols carry commands in clear text without authentication, and map real attack stages to controls.",
+   setup:"Trainer-provided <b>sample .pcap files</b> (IEC 60870-5-104, DNP3, Modbus) opened offline in Wireshark. No live networks are touched. Python sample maps the 2015 attack stages to preventive / detective / recovery controls.",
+   tasks:"(1) Identify master/outstation addresses. (2) Locate a control command and decode the target point. (3) Answer: what would prevent a rogue host from sending the same command? (4) Note which fields would need to be authenticated.",
+   deliverable:"One-page findings sheet + ATT&amp;CK mapping sheet"}
+ ]
+},
+{
+ id:"m2", num:2, icon:"&#128737;",
+ title:"Prevention: Secure by Design", hours:"10 h", theory:"5.5 h", lab:"4.0 h",
+ focus:"Build security into access, communications, devices and purchasing decisions.",
+ clos:["CLO3 (C3)","CLO4 (C3)","CLO5 (C5)"],
+ objectives:[
+  "<b>Design</b> a role-based access matrix for SCADA/DMS, HES, MDMS and vending systems using least privilege <i>(C3)</i>",
+  "<b>Implement</b> MFA and controlled remote/vendor access via a jump host <i>(C3)</i>",
+  "<b>Configure</b> DLMS/COSEM authentication and encryption and explain key management duties <i>(C3)</i>",
+  "<b>Assess</b> RTU/IED security posture using a hardening checklist <i>(C5)</i>",
+  "<b>Evaluate</b> vendor proposals using secure-procurement criteria <i>(C5)</i>"
+ ],
+ sessions:[
+  {id:"2.1", title:"Defense in Depth and Segmentation", type:"Theory", time:"1.0 h", html:`
+   <ul>
+    <li>Layered defense: policy &rarr; network &rarr; host &rarr; application &rarr; data &rarr; physical</li>
+    <li><b>Zones and conduits</b> (IEC 62443-3-2/3-3): corporate, DMZ, control centre, substation, field, AMI field network, vending</li>
+    <li>Firewall design: default-deny, protocol-aware rules, unidirectional gateways/data diodes for historian export</li>
+    <li>Separating AMI/HES and vending from SCADA networks</li>
+    <li>Secure remote access architecture: no direct internet exposure; jump host in DMZ; session recording</li>
+   </ul>`},
+  {id:"2.2", title:"Identity and Access Management", type:"Theory", time:"1.0 h", html:`
+   <ul>
+    <li><b>Role-Based Access Control (RBAC)</b>: roles such as <i>Viewer, Operator, Senior Operator, Engineer, Administrator, Vendor (time-limited), Auditor</i></li>
+    <li>Principles: <b>least privilege, separation of duties, need-to-know</b>; no shared accounts; unique IDs for every person</li>
+    <li><b>MFA</b> for remote access, engineering workstations, HES/MDMS admin consoles, vending back-office, privileged operations</li>
+    <li>Privileged Access Management (PAM): vaulting, just-in-time access, session recording, rotated passwords</li>
+    <li>Joiner-mover-leaver process and periodic access recertification</li>
+    <li>Local fallback: emergency (break-glass) accounts with sealed credentials and mandatory post-use review</li>
+   </ul>
+   <p><b>Illustrative RBAC matrix</b> (refined in Lab 2.1)</p>
+   <div class="tw"><table>
+    <tr><th>Function</th><th class="c">Viewer</th><th class="c">Operator</th><th class="c">Sr. Operator</th><th class="c">Engineer</th><th class="c">Admin</th><th class="c">Vendor</th></tr>
+    <tr><td>View SCADA data</td><td class="c">&#10004;</td><td class="c">&#10004;</td><td class="c">&#10004;</td><td class="c">&#10004;</td><td class="c">&#10004;</td><td class="c">&#10004; (scoped)</td></tr>
+    <tr><td>Operate single breaker</td><td></td><td class="c">&#10004;</td><td class="c">&#10004;</td><td></td><td></td><td></td></tr>
+    <tr><td>Bulk feeder switching</td><td></td><td></td><td class="c">&#10004; (+approval)</td><td></td><td></td><td></td></tr>
+    <tr><td>Change RTU config</td><td></td><td></td><td></td><td class="c">&#10004;</td><td></td><td class="c">&#10004; (time-limited)</td></tr>
+    <tr><td>Manage users and keys</td><td></td><td></td><td></td><td></td><td class="c">&#10004;</td><td></td></tr>
+    <tr><td>Bulk meter disconnect</td><td></td><td></td><td class="c">&#10004; (+2nd approver)</td><td></td><td></td><td></td></tr>
+   </table></div>`},
+  {id:"2.3", title:"AMI and Vending Security", type:"Theory", time:"1.5 h", html:`
+   <ul>
+    <li><b>DLMS/COSEM security features</b> (IEC 62056-5-3 and Green Book)
+      <ul>
+       <li>Authentication levels: no security / low-level (password) / <b>high-level (HLS)</b>, e.g. GMAC-based</li>
+       <li>Message protection: <b>authentication, encryption, or both</b> for APDUs</li>
+       <li>Security suites: <b>Suite 0</b> (AES-GCM-128), <b>Suite 1</b> (adds ECDH/ECDSA P-256), <b>Suite 2</b> (P-384 and AES-256)</li>
+       <li>Key types: master key (KEK), global unicast encryption key (GUEK), global broadcast key, authentication key (AK), and the <b>invocation counter</b> (replay protection)</li>
+      </ul></li>
+    <li><b>Key management essentials</b>
+      <ul>
+       <li><b>Unique keys per meter</b>; never a shared fleet-wide default key</li>
+       <li>Utility-owned keys: do not leave key custody solely with a vendor</li>
+       <li>Keys stored in an HSM or secured key server; key rotation plan; dual control for key ceremonies</li>
+       <li>Factory/default keys changed at commissioning (SAT check)</li>
+      </ul></li>
+    <li><b>Other AMI controls:</b> DCU/HES hardening, secure firmware update (signed images), tamper detection and alarms, secure APN/VPN for cellular, rate limits on remote disconnect commands</li>
+    <li><b>Vending systems:</b> STS token generation within an HSM, secured vending keys and key-change procedures, vendor/operator authentication with MFA, transaction logging and reconciliation, separation between operator, supervisor and administrator roles, fraud analytics</li>
+   </ul>`},
+  {id:"2.4", title:"RTU/IED/Substation Hardening", type:"Theory", time:"1.0 h", html:`
+   <ul>
+    <li><b>Hardening baseline</b>
+     <ul>
+      <li>Change all default credentials; unique, strong passwords; centralized authentication where supported</li>
+      <li>Disable unused services and ports (HTTP, FTP, Telnet, SNMPv1/2, debug interfaces)</li>
+      <li>Enable secure protocols (TLS/SSH, SNMPv3); restrict management to a defined engineering subnet</li>
+      <li><b>Firmware integrity:</b> signed firmware only, controlled upgrade process, hash verification</li>
+      <li>Configuration backup, change logging and periodic comparison to the baseline</li>
+      <li>Time synchronization from authenticated sources</li>
+      <li>Physical security: locked cabinets, port blockers, USB/media control, tamper alarms, Local/Remote switch discipline</li>
+      <li>Serial-to-Ethernet gateways and modems: inventory, lock down, or remove</li>
+     </ul></li>
+    <li><b>IEC 62351 overview:</b> TLS for IEC 104 (Part 3), authentication in profiles (Part 5), role-based access (Part 8), key management (Part 9); <b>DNP3 Secure Authentication</b> as a comparable control</li>
+    <li>Patch/vulnerability management in OT: test first, maintenance windows, compensating controls when patching is not possible</li>
+   </ul>`},
+  {id:"2.5", title:"Secure Procurement and Lifecycle", type:"Theory", time:"1.0 h", html:`
+   <ul>
+    <li>Security requirements in tender documents (RFP/SoW)
+     <ul>
+      <li>Compliance or alignment with <b>IEC 62443-4-1 / 4-2 / 3-3</b></li>
+      <li>No hard-coded or shared default credentials; support for RBAC, logging and secure protocols</li>
+      <li><b>Software Bill of Materials (SBOM)</b> and vulnerability disclosure / patch commitments</li>
+      <li>Defined <b>support lifetime</b>, signed firmware and updates</li>
+      <li>Right to security testing, <b>FAT/SAT with security test cases</b></li>
+      <li>Controlled vendor remote maintenance (utility-approved, time-bound, logged)</li>
+      <li>Breach-notification obligations and key/data ownership clauses</li>
+      <li>Secure decommissioning and data wiping</li>
+     </ul></li>
+    <li>Supply-chain risk: counterfeit components, third-party software, vendor access</li>
+    <li>Total cost of ownership view: security as lifecycle cost, not an add-on</li>
+   </ul>`}
+ ],
+ labs:[
+  {id:"Lab 2.1", title:"RBAC Matrix and MFA-Protected Jump Host", time:"1.0 h", clo:"CLO3", bloom:"C3", py:"lab21",
+   objective:"Translate least-privilege into a working access design.",
+   setup:"Virtual lab: a training SCADA HMI (simulated) behind a jump-host VM; an authentication server with TOTP-based MFA. The Python sample models the same policy checks.",
+   tasks:"(1) Complete an RBAC matrix for a given set of Kaptai-style roles. (2) Create roles/users on the lab system. (3) Enable MFA on the jump host and test a remote session. (4) Demonstrate that a Viewer cannot operate a control point. (5) Review session logs.",
+   deliverable:"Completed RBAC matrix + test evidence (screenshots / log extract)"},
+  {id:"Lab 2.2", title:"DLMS/COSEM Secured Association on a Simulator", time:"1.5 h", clo:"CLO4", bloom:"C3", py:"lab22",
+   objective:"See the difference between an unsecured and a secured meter session.",
+   setup:"Open-source DLMS client and a <b>meter simulator</b> (e.g., Gurux DLMS Director with a simulated meter), running only on lab machines. Use only lab-generated, non-production keys; never bring real meter keys into the lab. The Python sample is a concept demo of per-meter keys, authentication tags and replay protection.",
+   tasks:"(1) Connect with no security and read registers. (2) Enable HLS authentication and AES-GCM encryption with a lab-generated key set. (3) Attempt a read with a wrong/missing key and observe the rejection. (4) Examine invocation-counter behavior. (5) Draft a key-lifecycle table (generation, storage, injection, rotation, revocation).",
+   deliverable:"Lab report with screenshots + key-lifecycle table"},
+  {id:"Lab 2.3", title:"RTU/IED Hardening Audit", time:"1.0 h", clo:"CLO5", bloom:"C4 / C5", py:"lab23",
+   objective:"Audit a device configuration against the hardening baseline.",
+   setup:"Provided <b>configuration exports</b> and screenshots of a sample RTU/IED (or a virtual device), plus a hardening checklist. Python sample scores a fictitious device.",
+   tasks:"(1) Score each checklist item Pass / Partial / Fail. (2) Identify the three highest-risk findings. (3) Recommend corrective actions with priority and owner. (4) Decide which items need compensating controls because patching is impractical.",
+   deliverable:"Completed audit sheet with prioritized remediation plan"},
+  {id:"Lab 2.4", title:"Secure Procurement Specification Review", time:"0.5 h", clo:"CLO5", bloom:"C5", py:"lab24",
+   objective:"Evaluate proposals through a security lens.",
+   setup:"Excerpts from two <b>fictitious</b> vendor proposals for AMI meters/DCUs. Python sample applies weighted scoring.",
+   tasks:"Score both against a procurement security checklist; identify missing clauses; recommend which to shortlist and justify.",
+   deliverable:"Scored checklist + 5-line justification"}
+ ]
+},
+{
+ id:"m3", num:3, icon:"&#128680;",
+ title:"Detection, Mitigation & Recovery", hours:"10 h", theory:"4.75 h", lab:"4.75 h",
+ focus:"Assume prevention can fail. Detect quickly, limit blast radius, and restore safely, including by hand.",
+ clos:["CLO6 (C4)","CLO7 (C6)","CLO8 (C6)"],
+ objectives:[
+  "<b>Analyze</b> OT network traffic and logs to spot unauthorized or abnormal commands <i>(C4)</i>",
+  "<b>Design</b> a two-person approval workflow for bulk disconnection and other high-impact operations <i>(C6)</i>",
+  "<b>Develop</b> a manual restoration procedure that works when SCADA/AMI is unavailable <i>(C6)</i>",
+  "<b>Formulate</b> an incident response plan with roles, escalation and communication <i>(C6)</i>",
+  "<b>Justify</b> decisions in a realistic exercise while observing safety and regulatory duties <i>(C5)</i>"
+ ],
+ sessions:[
+  {id:"3.1", title:"Monitoring and Detection", type:"Theory", time:"1.5 h", html:`
+   <ul>
+    <li>What to monitor: control commands, new devices/IPs, new protocol function codes, configuration/firmware changes, logins (especially off-hours or privileged), remote sessions, AMI mass operations</li>
+    <li><b>Passive network monitoring</b> (no disruption to OT): SPAN/TAP, OT-aware IDS such as Zeek or Suricata with ICS protocol parsers, or commercial OT monitoring platforms</li>
+    <li><b>Baselining:</b> normal masters, normal polling intervals, normal command types; alerts on deviation</li>
+    <li>Log sources: firewalls, jump hosts, SCADA servers, HES/MDMS, vending back-office, authentication servers; centralized log collection (SIEM) and <b>time synchronization</b></li>
+    <li>SOC&ndash;operations coordination: who triages, who decides, who acts; alert fatigue and tuning</li>
+    <li>Threat hunting basics and integrating threat intelligence (e.g., national CERT advisories)</li>
+   </ul>
+   <div class="tw"><table>
+    <tr><th>Use case</th><th>Detection idea</th></tr>
+    <tr><td>Unauthorized master sending IEC-104 control</td><td>Alert on control ASDUs from IPs not on the allow-list</td></tr>
+    <tr><td>Burst of breaker-open commands</td><td>Threshold on commands per minute/feeder</td></tr>
+    <tr><td>Mass meter disconnect</td><td>Alert on disconnect volume vs. daily norm; require approval (see 3.2)</td></tr>
+    <tr><td>New firmware/config pushed to RTU</td><td>Change event outside approved window</td></tr>
+    <tr><td>Off-hours privileged login</td><td>Correlate with work orders</td></tr>
+    <tr><td>Vending anomalies</td><td>Unusual token volumes, new operator terminals, repeated key-change attempts</td></tr>
+   </table></div>`},
+  {id:"3.2", title:"Safeguards for High-Impact Commands", type:"Theory", time:"1.0 h", html:`
+   <ul>
+    <li><b>Why:</b> both Ukraine incidents and AMI risk models show that one compromised account can create wide-area impact</li>
+    <li><b>Two-person (four-eyes) approval for bulk disconnection</b>
+     <ul>
+      <li><b>Trigger rules:</b> any request above a defined threshold (number of meters, aggregate MW, number of feeders/breakers) or any &ldquo;all-in-area&rdquo; operation</li>
+      <li><b>Separation of duties:</b> initiator &ne; approver; approver must hold the proper role and be authenticated with MFA</li>
+      <li><b>Out-of-band confirmation:</b> verify via voice/phone with a known contact or a separate approval channel</li>
+      <li><b>Scope limits:</b> maximum batch size per request; geographic or feeder whitelist; rate limits and cool-down timers</li>
+      <li><b>Time-bound approvals</b> with automatic expiry; immutable audit trail</li>
+      <li><b>Break-glass path</b> for emergencies with extra logging and mandatory post-event review</li>
+      <li><b>Business-rule validation:</b> check against outage plans, work orders, load-shedding schedules and customer-priority lists (hospitals, water, etc.)</li>
+     </ul></li>
+    <li>Equivalent controls for SCADA: dual authorization for multi-breaker or feeder-group operations; interlocks and operating-mode restrictions</li>
+    <li>Change management and configuration control for RTU/HES/DCU changes</li>
+   </ul>
+   <p><b>Approval workflow</b></p>
+   <ol>
+    <li><b>Initiator (Operator A)</b> &rarr; requests bulk operation with scope, reason and work-order ID</li>
+    <li><b>HES/SCADA policy engine</b> &rarr; validates scope against thresholds and rules</li>
+    <li><b>Approver (Sr. Engineer B)</b> &rarr; receives the request and authenticates with MFA</li>
+    <li><b>Out-of-band check</b> &rarr; approver confirms with the initiator by phone</li>
+    <li><b>Approve / reject</b> &rarr; time-bound approval</li>
+    <li><b>Execution</b> &rarr; within rate and batch limits; field devices act</li>
+    <li><b>Audit</b> &rarr; immutable log written and SOC alerted</li>
+   </ol>`},
+  {id:"3.3", title:"Incident Response and Manual Restoration", type:"Theory", time:"1.25 h", html:`
+   <ul>
+    <li>IR lifecycle (adapted from NIST SP 800-61 / SANS): <b>Prepare &rarr; Detect &rarr; Analyze &rarr; Contain &rarr; Eradicate &rarr; Recover &rarr; Lessons learned</b></li>
+    <li>OT-specific priorities: <b>safety first</b>, preserve grid stability, avoid destructive &ldquo;reboot everything&rdquo; reactions, preserve evidence</li>
+    <li><b>Containment options:</b> isolate IT/OT conduits, disable remote access, block suspect accounts, switch devices to <b>local control</b></li>
+    <li><b>Manual operation and restoration</b>
+     <ul>
+      <li>Keep up-to-date <b>switching procedures and single-line diagrams</b> offline</li>
+      <li>Local/Remote switch practice and field crew readiness; independent communications (radio/phone) not dependent on IT</li>
+      <li><b>Permit-to-work, lock-out/tag-out</b> and safe-switching discipline still apply</li>
+      <li>Restoration priority list (critical loads first), staged re-energization, coordination between control centre and field teams</li>
+      <li>Spare/clean equipment (e.g., serial gateways, RTU configs), <b>offline golden backups</b> of configurations and firmware</li>
+      <li>Verify integrity before returning to remote operation</li>
+     </ul></li>
+    <li>Communication plan: internal escalation, management, regulator/national CERT, customers and media</li>
+    <li>Business continuity for AMI/vending: manual billing and token alternatives, call-centre resilience</li>
+   </ul>`},
+  {id:"3.4", title:"Governance, Regulation and Culture", type:"Theory", time:"1.0 h", html:`
+   <ul>
+    <li>Security governance: policy, roles (CISO / OT security lead), risk register, KPIs</li>
+    <li>Standards and good practice: <b>IEC 62443, IEC 62351, ISO/IEC 27001 (with 27019 for energy), NIST SP 800-82, NERC CIP (as a reference model)</b></li>
+    <li><b>Bangladesh context:</b> Cyber Security Act 2023, national cybersecurity strategy and the national CIRT (BGD e-GOV CIRT) incident-reporting channels, together with organizational policy of BPDB / PGCB / BREB / distribution utilities. <i>Always confirm the current legal text and reporting procedures with your Legal/ICT unit.</i></li>
+    <li>Human factors: phishing awareness, removable-media discipline, vendor access etiquette, reporting culture (no blame)</li>
+    <li>Drills and exercises: tabletop, functional, full-scale; metrics (time-to-detect, time-to-contain, time-to-restore)</li>
+    <li>Ethics: authorized testing only; responsible disclosure; protecting customer data</li>
+   </ul>`}
+ ],
+ labs:[
+  {id:"Lab 3.1", title:"Passive Monitoring and Detection", time:"1.5 h", clo:"CLO6", bloom:"C3 / C4", py:"lab31",
+   objective:"Detect unauthorized control activity from traffic and logs.",
+   setup:"Lab VM with Wireshark/Zeek/Suricata and a SIEM-lite (e.g., Security Onion or ELK). Trainer-provided <b>normal-baseline pcap</b> and an <b>&ldquo;incident&rdquo; pcap/log set</b> with injected, clearly labelled anomalies. Offline only. The Python sample applies three detection rules to a synthetic log.",
+   tasks:"(1) Build a baseline: masters, outstations, command types. (2) Write 3 detection rules (control command from non-allow-listed IP; burst of commands; off-hours admin login). (3) Run rules on the incident data and triage alerts. (4) Produce a timeline of suspicious events.",
+   deliverable:"Rule set + alert triage notes + incident timeline"},
+  {id:"Lab 3.2", title:"Two-Person Approval Workflow Design and Simulation", time:"1.0 h", clo:"CLO7", bloom:"C5 / C6", py:"lab32",
+   objective:"Design and test a four-eyes control for bulk disconnection.",
+   setup:"Workflow template + role-play with a simulated HES console (or a spreadsheet/form-based simulator provided by the trainer). Python sample simulates the policy engine.",
+   tasks:"(1) Define thresholds, roles and approval rules. (2) Draw the workflow (sequence/flowchart). (3) Run three scenarios in pairs: planned load-shedding, non-payment batch, suspicious mass-disconnect request. (4) Record where the control stopped or delayed the request and any usability gaps. (5) Define the break-glass rule.",
+   deliverable:"Approval policy (1 page) + workflow diagram + scenario results"},
+  {id:"Lab 3.3", title:"Manual Restoration Drill (Tabletop + SOP Writing)", time:"1.0 h", clo:"CLO7", bloom:"C6", py:"lab33",
+   objective:"Prepare a usable manual-restoration SOP.",
+   setup:"Single-line diagram of a fictitious 33/11 kV substation and 6 feeders; scenario: SCADA and communications unavailable after a cyber incident. Python sample proposes a staged re-energization order.",
+   tasks:"(1) Write a step-by-step restoration SOP (isolate, verify, switch, re-energize in stages). (2) Define communication and roles (control room, field crew, safety officer). (3) List prerequisites (offline docs, spares, tools, permits). (4) Walk through the SOP in a short tabletop.",
+   deliverable:"Manual restoration SOP + prerequisites checklist"},
+  {id:"Lab 3.4", title:"Capstone Tabletop: Ukraine-Style Scenario on a Kaptai-Like Network", time:"1.25 h", clo:"CLO8", bloom:"C5 / C6", py:null,
+   objective:"Apply the whole course in a realistic, facilitated exercise.",
+   setup:"Teams of 4&ndash;5 with assigned roles (Control Room, OT Engineer, IT/Network, Field Operations, Management/Comms). Trainer injects timed events.<br><b>Scenario outline:</b> phishing foothold &rarr; suspicious VPN login &rarr; unexpected breaker-open events on several feeders &rarr; AMI mass-disconnect attempt &rarr; loss of HMI visibility &rarr; customer call surge.",
+   tasks:"Detect, decide, contain, restore, communicate; record decisions and rationale.",
+   deliverable:"Team IR plan (1&ndash;2 pages) + 10-minute debrief with lessons learned and gap list"}
+ ]
+}
+];
+
+/* Practice quizzes (ungraded self-checks) */
+const QUIZ = {
+ "Quiz 1 practice (Module 1)":[
+  {q:"(C1) Which is a security weakness of the base IEC 60870-5-104 protocol?", o:["It cannot carry control commands","It has no built-in authentication or encryption","It works only on serial links","It requires a PKI to operate"], a:1, why:"Base IEC 104 has no native authentication or encryption; IEC 62351 profiles add them."},
+  {q:"(C2) Which priority order is correct for OT security?", o:["Confidentiality > Integrity > Availability","Safety and Availability > Integrity > Confidentiality","Cost > Confidentiality > Safety","Integrity > Confidentiality > Safety"], a:1, why:"Grid cyber incidents are physical incidents, so safety and availability come first."},
+  {q:"(C4) In the 2015 Ukraine attack, how were breakers opened remotely?", o:["By physically entering substations","By exploiting a bug in every relay","Using the operators' own SCADA/HMI after credential theft and remote access","By jamming satellite links"], a:2, why:"Attackers used legitimate operator tools through remote access, which is why segmentation, MFA and command monitoring matter."}
+ ],
+ "Quiz 2 practice (Module 2)":[
+  {q:"(C3) A vendor engineer must update an RTU configuration next week. Which approach best follows least privilege?", o:["Share the Engineer account password","Create a named, time-limited account with MFA via the jump host, and log the session","Open a direct VPN to the substation","Give the vendor the Administrator role permanently"], a:1, why:"Named, time-limited, MFA-protected, monitored access through a jump host."},
+  {q:"(C2) In DLMS/COSEM, which combination protects a meter command from both tampering and eavesdropping?", o:["Low-level (password) authentication only","No security","Authenticated encryption (e.g., AES-GCM) with a unique per-meter key","A shared fleet-wide key stored in the HES"], a:2, why:"Authenticated encryption gives integrity + confidentiality; unique keys limit the blast radius of any compromise."},
+  {q:"(C5) Which item is NOT a recommended RTU hardening step?", o:["Disable unused services and ports","Change default credentials","Keep Telnet enabled for convenience","Allow only signed firmware"], a:2, why:"Telnet sends credentials in clear text; use SSH/TLS and restrict management access."}
+ ],
+ "Quiz 3 practice (Module 3)":[
+  {q:"(C4) Which observation is the strongest indicator of a possible attack on a substation?", o:["A scheduled historian poll every 10 s","A control command to a breaker from an IP that is not on the master allow-list","A routine NTP sync","A maintenance login during an approved work order"], a:1, why:"Control commands from non-allow-listed sources are a high-fidelity detection rule."},
+  {q:"(C6) Which statement about two-person approval for bulk disconnection is correct?", o:["The initiator may approve their own request if senior","Approval never expires","Initiator and approver must be different people, with MFA, scope limits and an audit trail","Out-of-band confirmation is unnecessary"], a:2, why:"Separation of duties, MFA, scope limits, expiry and immutable logging are core elements."},
+  {q:"(C5) What is the first priority when SCADA visibility is lost and unexpected breaker operations are reported?", o:["Safety of people and grid stability","Wipe and reinstall all systems","Announce details to the media","Reboot every device at once"], a:0, why:"OT incident response puts safety and stability first, and preserves evidence."}
+ ]
+};
+
+/* =====================================================================
+   HELPERS
+   ===================================================================== */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const store = {
+  get(){ try{ return JSON.parse(localStorage.getItem('gridCourseProgress')||'{}'); }catch(e){ return {}; } },
+  set(o){ try{ localStorage.setItem('gridCourseProgress', JSON.stringify(o)); }catch(e){} }
+};
+let progress = store.get();
+
+/* ----- Python runner (Pyodide, loaded on first Run) ----- */
+let pyPromise = null;
+function getPython(){
+  if(!pyPromise){
+    pyPromise = new Promise((resolve, reject)=>{
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js';
+      s.onload = async ()=>{ try{ resolve(await loadPyodide()); }catch(e){ pyPromise=null; reject(e); } };
+      s.onerror = ()=>{ pyPromise=null; reject(new Error('Could not load the Python runtime. Check your internet connection, or paste the code into an online Python compiler.')); };
+      document.head.appendChild(s);
+    });
+  }
+  return pyPromise;
+}
+async function runPython(ta, out, btn){
+  const buf = [];
+  btn.disabled = true;
+  out.textContent = 'Loading Python runtime (first run takes a few seconds)...';
+  try{
+    const py = await getPython();
+    py.setStdout({batched: s=>buf.push(s)});
+    py.setStderr({batched: s=>buf.push(s)});
+    const g = py.globals.get('dict')();
+    try{ await py.runPythonAsync(ta.value, {globals:g}); } finally { g.destroy(); }
+    out.textContent = buf.join('\n') || '(program finished with no output)';
+  }catch(e){
+    out.textContent = (buf.length? buf.join('\n')+'\n\n':'') + 'Error: ' + (e && e.message ? e.message : e);
+  }finally{ btn.disabled = false; }
+}
+function codeBlock(key, uid){
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `
+    <div class="row"><b>Python sample</b> <span class="small">(editable &ndash; change values and run again)</span></div>
+    <textarea class="code" spellcheck="false" id="ta-${uid}"></textarea>
+    <div class="row">
+      <button class="btn small" data-act="run">&#9654; Run code</button>
+      <button class="btn small" data-act="reset">Reset code</button>
+      <button class="btn small" data-act="copy">Copy</button>
+      <button class="btn small" data-act="clear">Clear output</button>
+    </div>
+    <pre class="out" id="out-${uid}">Output will appear here.</pre>`;
+  const ta = $('textarea', wrap), out = $('pre', wrap);
+  ta.value = PY[key];
+  wrap.addEventListener('click', ev=>{
+    const b = ev.target.closest('button'); if(!b) return;
+    const act = b.dataset.act;
+    if(act==='run') runPython(ta, out, b);
+    if(act==='reset') ta.value = PY[key];
+    if(act==='clear') out.textContent = 'Output will appear here.';
+    if(act==='copy'){ (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject()).then(()=>{b.textContent='Copied!'; setTimeout(()=>b.textContent='Copy',1200);}).catch(()=>{ta.select(); b.textContent='Select + Ctrl+C'; setTimeout(()=>b.textContent='Copy',1800);}); }
+  });
+  ta.addEventListener('keydown', e=>{ if(e.key==='Tab'){ e.preventDefault(); const s=ta.selectionStart; ta.setRangeText('    ', s, ta.selectionEnd, 'end'); } });
+  return wrap;
+}
+
+/* ----- progress ----- */
+function updateProgress(){
+  let total=0, done=0;
+  MODULES.forEach(m=>{
+    const ids = [...m.sessions.map(s=>'s'+s.id), ...m.labs.map(l=>'l'+l.id)];
+    const d = ids.filter(i=>progress[i]).length;
+    total += ids.length; done += d;
+    const bar = $('#bar-'+m.id), txt = $('#txt-'+m.id);
+    if(bar) bar.style.width = (100*d/ids.length)+'%';
+    if(txt) txt.textContent = d+' of '+ids.length+' items completed';
+  });
+  $('#overallBar').style.width = (total? 100*done/total : 0)+'%';
+  $('#overallTxt').textContent = done+' of '+total+' items completed ('+Math.round(total? 100*done/total:0)+'%)';
+}
+function progBox(id){
+  const l = document.createElement('label');
+  l.innerHTML = `<input type="checkbox" class="done-box" ${progress[id]?'checked':''} title="Mark as completed"> `;
+  const cb = $('input', l);
+  l.addEventListener('click', e=>e.stopPropagation());
+  cb.addEventListener('change', ()=>{ progress[id]=cb.checked; if(!cb.checked) delete progress[id]; store.set(progress); updateProgress(); });
+  return l;
+}
+
+/* ----- render modules ----- */
+function renderModules(){
+  MODULES.forEach(m=>{
+    const root = $('#'+m.id+'-body');
+    const head = document.createElement('div');
+    head.innerHTML = `
+      <h2>${m.icon} Module ${m.num} &mdash; ${m.title} (${m.hours})</h2>
+      <div class="mod-head">
+        <p style="margin:0 0 6px"><b>Focus:</b> ${m.focus}</p>
+        <div class="chips" style="margin:6px 0">${m.clos.map(c=>`<span class="chip">${c}</span>`).join('')}
+          <span class="chip">Theory ${m.theory}</span><span class="chip">Labs ${m.lab}</span><span class="chip">Quiz 0.5 h</span></div>
+        <div class="progress"><i id="bar-${m.id}"></i></div>
+        <div class="small" id="txt-${m.id}"></div>
+      </div>
+      <h3>Module ${m.num} learning objectives</h3>
+      <p class="small">By the end of this module you will be able to:</p>
+      <ul>${m.objectives.map(o=>`<li>${o}</li>`).join('')}</ul>
+      <h3>Session plan</h3>
+      <div class="tw"><table><tr><th>Session</th><th>Topic</th><th>Type</th><th>Time</th></tr>
+      ${m.sessions.map(s=>`<tr><td>${s.id}</td><td>${s.title}</td><td>${s.type}</td><td>${s.time}</td></tr>`).join('')}
+      ${m.labs.map(l=>`<tr><td>${l.id}</td><td>${l.title}</td><td>Lab</td><td>${l.time}</td></tr>`).join('')}
+      <tr><td><b>Quiz ${m.num}</b></td><td>10 marks, 30 minutes</td><td>Assessment</td><td>0.5 h</td></tr></table></div>
+      <h3>&#128214; Content detail</h3>`;
+    root.appendChild(head);
+
+    m.sessions.forEach(s=>{
+      const d = document.createElement('details');
+      const sm = document.createElement('summary');
+      sm.appendChild(progBox('s'+s.id));
+      sm.insertAdjacentHTML('beforeend', `<span>Session ${s.id} &mdash; ${s.title}</span><span class="tag">${s.type}</span><span class="time">${s.time}</span>`);
+      d.appendChild(sm);
+      const b = document.createElement('div'); b.className='dbody'; b.innerHTML = s.html; d.appendChild(b);
+      root.appendChild(d);
+    });
+
+    const lh = document.createElement('h3'); lh.style.marginTop='20px'; lh.innerHTML = `&#129514; Module ${m.num} labs`;
+    root.appendChild(lh);
+    m.labs.forEach((l,i)=>{
+      const d = document.createElement('details');
+      const sm = document.createElement('summary');
+      sm.appendChild(progBox('l'+l.id));
+      sm.insertAdjacentHTML('beforeend', `<span>${l.id} &mdash; ${l.title}</span><span class="tag">${l.clo}</span><span class="tag">Bloom ${l.bloom}</span><span class="time">${l.time}</span>`);
+      d.appendChild(sm);
+      const b = document.createElement('div'); b.className='dbody';
+      b.innerHTML = `<div class="tw"><table class="lab-meta">
+        <tr><td>Objective</td><td>${l.objective}</td></tr>
+        <tr><td>Setup</td><td>${l.setup}</td></tr>
+        <tr><td>Tasks</td><td>${l.tasks}</td></tr>
+        <tr><td>Deliverable</td><td>${l.deliverable}</td></tr>
+        <tr><td>Bloom / CLO</td><td>${l.bloom} &middot; ${l.clo}</td></tr></table></div>`;
+      if(l.py){ b.appendChild(codeBlock(l.py, m.id+'-'+i)); }
+      else { b.insertAdjacentHTML('beforeend','<div class="note">This capstone is a facilitated team exercise; no code is required. Use the tools and outputs from Labs 3.1&ndash;3.3 as inputs.</div>'); }
+      d.appendChild(b);
+      root.appendChild(d);
+    });
+    root.insertAdjacentHTML('beforeend', `<div class="row"><a class="btn" href="#quizzes">Practice for Quiz ${m.num} &rarr;</a> ${m.num<3?`<a class="btn" href="#m${m.num+1}">Next: Module ${m.num+1} &rarr;</a>`:'<a class="btn" href="#assessment">Assessment rules &rarr;</a>'}</div>`);
+  });
+  updateProgress();
+}
+
+/* ----- render quizzes ----- */
+function renderQuiz(){
+  const root = $('#quiz-body');
+  Object.keys(QUIZ).forEach((title,qi)=>{
+    const box = document.createElement('details');
+    if(qi===0) box.open = true;
+    box.innerHTML = `<summary>${title}</summary>`;
+    const body = document.createElement('div'); body.className='dbody';
+    QUIZ[title].forEach((q,i)=>{
+      const div = document.createElement('div'); div.className='q';
+      div.innerHTML = `<div><b>${i+1}. ${q.q}</b></div>` +
+        q.o.map((t,k)=>`<label><input type="radio" name="q${qi}_${i}" value="${k}"> ${String.fromCharCode(97+k)}) ${t}</label>`).join('') +
+        `<div class="fb" id="fb${qi}_${i}"></div>`;
+      body.appendChild(div);
+    });
+    const btn = document.createElement('button'); btn.className='btn'; btn.textContent='Check answers';
+    const score = document.createElement('div'); score.className='fb'; score.style.marginTop='10px';
+    btn.addEventListener('click', ()=>{
+      let s=0;
+      QUIZ[title].forEach((q,i)=>{
+        const sel = body.querySelector(`input[name="q${qi}_${i}"]:checked`);
+        const fb = $('#fb'+qi+'_'+i);
+        if(!sel){ fb.textContent = 'No answer selected. Correct: '+String.fromCharCode(97+q.a)+') '+q.o[q.a]; return; }
+        if(+sel.value===q.a){ s++; fb.textContent = '✔ Correct. '+q.why; }
+        else { fb.textContent = '✘ Not quite. Correct: '+String.fromCharCode(97+q.a)+') '+q.o[q.a]+'. '+q.why; }
+      });
+      score.textContent = 'Practice score: '+s+' / '+QUIZ[title].length;
+    });
+    body.appendChild(btn); body.appendChild(score);
+    box.appendChild(body); root.appendChild(box);
+  });
+
+  /* short-answer prompts from the course blueprint */
+  const sa = document.createElement('details');
+  sa.innerHTML = `<summary>Short-answer practice prompts (self-assess or discuss)</summary>
+  <div class="dbody"><ol>
+   <li><b>(C2)</b> Explain, in two or three sentences, why &ldquo;availability and safety&rdquo; take priority over &ldquo;confidentiality&rdquo; in OT environments.</li>
+   <li><b>(C4)</b> From the 2015 Ukraine incident, name <b>three</b> actions of the attackers other than opening breakers, and state <b>one</b> control that could have limited each.</li>
+   <li><b>(C5)</b> A tender response offers meters with a single default key for the entire fleet and no SBOM. Give <b>three</b> reasons this proposal should be rejected or conditioned.</li>
+   <li><b>(C6)</b> Specify the minimum elements of a two-person approval rule for disconnecting more than 500 meters in one request (thresholds, roles, verification, logging).</li>
+   <li><b>(C6)</b> List the first five actions your team should take if SCADA visibility is lost and unexpected breaker operations are reported. Justify the order.</li>
+  </ol></div>`;
+  root.appendChild(sa);
+}
+
+/* ----- playground ----- */
+function renderPlayground(){
+  const root = $('#playground-body');
+  const w = codeBlock('play','play');
+  root.appendChild(w);
+}
+
+/* ----- score calculator ----- */
+function setupCalc(){
+  $('#calcBtn').addEventListener('click', ()=>{
+    const v = ['s1','s2','s3'].map(id=>Math.min(10, Math.max(0, parseFloat($('#'+id).value)||0)));
+    const att = parseFloat($('#att').value)||0;
+    const tot = v.reduce((a,b)=>a+b,0);
+    const minOK = v.every(x=>x>=4);
+    let band = tot>=24?'Distinction':tot>=21?'Merit':tot>=18?'Pass':'Not yet competent';
+    let msg = `Total ${tot} / 30 &mdash; `;
+    const issues = [];
+    if(tot<18) issues.push('overall score is below 18');
+    if(!minOK) issues.push('at least one quiz is below 4/10');
+    if(att<80) issues.push('attendance is below 80%');
+    msg += issues.length ? `<span>Not yet eligible: ${issues.join('; ')}. (Lab deliverables must also be submitted.)</span>` : `Eligible for certification (${band}), subject to completed lab deliverables.`;
+    $('#calcOut').innerHTML = msg;
+  });
+}
+
+/* ----- navigation behaviour ----- */
+function setupNav(){
+  const burger = $('#burger'), nav = $('#mainnav');
+  burger.addEventListener('click', ()=>{ const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  $$('#mainnav a').forEach(a=>a.addEventListener('click', ()=>{ nav.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }));
+  const links = $$('#mainnav a');
+  const map = new Map(links.map(a=>[a.getAttribute('href').slice(1), a]));
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){ links.forEach(l=>l.classList.remove('active')); const a = map.get(en.target.id); if(a) a.classList.add('active'); }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px'});
+  map.forEach((a,id)=>{ const el = document.getElementById(id); if(el) obs.observe(el); });
+  const top = $('#toTop');
+  window.addEventListener('scroll', ()=>{ top.style.display = window.scrollY>600?'block':'none'; });
+  top.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+  $('#resetProgress').addEventListener('click', ()=>{
+    if(confirm('Clear all saved progress in this browser?')){ progress={}; store.set(progress); $$('.done-box').forEach(c=>c.checked=false); updateProgress(); }
+  });
+  $('#yr').textContent = new Date().getFullYear();
+}
+
+renderModules(); renderQuiz(); renderPlayground(); setupCalc(); setupNav();
+</script>
+</body>
+</html>
